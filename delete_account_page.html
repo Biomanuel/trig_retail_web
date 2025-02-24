@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete TrigRetails Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .delete-btn {
+            background-color: red;
+            color: white;
+        }
+        .cancel-btn {
+            background-color: gray;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="trigretails-logo.png" alt="TrigRetails Logo" class="logo">
+        <h2>Delete Your TrigRetails Account</h2>
+        <p>You are about to delete your TrigRetails account. This action is irreversible and will remove all your sales records, inventory, and account data.</p>
+        <button class="delete-btn" onclick="deleteAccount()">Delete My Account</button>
+        <button class="cancel-btn" onclick="cancelDeletion()">Cancel</button>
+    </div>
+
+    <script>
+        function deleteAccount() {
+            fetch('/api/delete-account', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId: 'USER_ID' })
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message || 'Your TrigRetails account has been deleted successfully'))
+            .catch(error => alert('Error deleting account'));
+        }
+
+        function cancelDeletion() {
+            window.location.href = '/'; // Redirect to home or previous page
+        }
+    </script>
+</body>
+</html>
